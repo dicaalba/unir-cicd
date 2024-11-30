@@ -21,3 +21,18 @@ class TestApi(unittest.TestCase):
         self.assertEqual(
             response.status, http.client.OK, f"Error en la petición API a {url}"
         )
+
+    def test_api_divide_by_zero(self):
+        url = f"{BASE_URL}/calc/divide/1/0"
+        with self.assertRaises(Exception):
+            urlopen(url, timeout=DEFAULT_TIMEOUT)
+
+    def test_api_sqrt_negative(self):
+        url = f"{BASE_URL}/calc/sqrt/-9"
+        with self.assertRaises(Exception):
+            urlopen(url, timeout=DEFAULT_TIMEOUT)
+
+    def test_api_log10_zero(self):
+        url = f"{BASE_URL}/calc/log10/0"
+        with self.assertRaises(Exception):
+            urlopen(url, timeout=DEFAULT_TIMEOUT)
